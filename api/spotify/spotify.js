@@ -1,87 +1,35 @@
-var SpotifyWebApi = require('spotify-web-api-node');
-const express = require('express')
+// Because this is a literal single page application
+// we detect a callback from Spotify by checking for the hash fragment
+import { redirectToAuthCodeFlow, getAccessToken } from "./authCodeWithPkce";
 
-const scopes = [
-    'ugc-image-upload',
-    'user-read-playback-state',
-    'user-modify-playback-state',
-    'user-read-currently-playing',
-    'streaming',
-    'app-remote-control',
-    'user-read-email',
-    'user-read-private',
-    'playlist-read-collaborative',
-    'playlist-modify-public',
-    'playlist-read-private',
-    'playlist-modify-private',
-    'user-library-modify',
-    'user-library-read',
-    'user-top-read',
-    'user-read-playback-position',
-    'user-read-recently-played',
-    'user-follow-read',
-    'user-follow-modify'
-  ];
-  
-// credentials are optional
-var spotifyApi = new SpotifyWebApi({
-    clientId: 'f72e21c1fa704ef3b13a5428188d69d7',
-    clientSecret: '3c16ebae303941a8ae4a750d6e5ec2b9',
-    redirectUri: 'http://localhost:8888/callback'
-  });
-  
-  const app = express();
-  
-  app.get('/login', (req, res) => {
-    res.redirect(spotifyApi.createAuthorizeURL(scopes));
-  });
-  
-  app.get('/callback', (req, res) => {
-    const error = req.query.error;
-    const code = req.query.code;
-    const state = req.query.state;
-  
-    if (error) {
-      console.error('Callback Error:', error);
-      res.send(`Callback Error: ${error}`);
-      return;
-    }
-  
-    spotifyApi
-      .authorizationCodeGrant(code)
-      .then(data => {
-        const access_token = data.body['access_token'];
-        const refresh_token = data.body['refresh_token'];
-        const expires_in = data.body['expires_in'];
-  
-        spotifyApi.setAccessToken(access_token);
-        spotifyApi.setRefreshToken(refresh_token);
-  
-        console.log('access_token:', access_token);
-        console.log('refresh_token:', refresh_token);
-  
-        console.log(
-          `Sucessfully retreived access token. Expires in ${expires_in} s.`
-        );
-        res.send('Success! You can now close the window.');
-  
-        setInterval(async () => {
-          const data = await spotifyApi.refreshAccessToken();
-          const access_token = data.body['access_token'];
-  
-          console.log('The access token has been refreshed!');
-          console.log('access_token:', access_token);
-          spotifyApi.setAccessToken(access_token);
-        }, expires_in / 2 * 1000);
-      })
-      .catch(error => {
-        console.error('Error getting Tokens:', error);
-        res.send(`Error getting Tokens: ${error}`);
-      });
-  });
-  
-  app.listen(8888, () =>
-    console.log(
-      'HTTP Server up. Now go to http://localhost:8888/login in your browser.'
-    )
-  );
+const clientId = "6df7668416944a8eb6ad0318fd79f76f";
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+
+if (!code) {
+    redirectToAuthCodeFlow(clientId);
+} else {
+    const accessToken = await getAccessToken(clientId, code);
+    const profile = await fetchProfile(accessToken);
+    populateUI(profile);
+}
+
+async function fetchProfile(code) {
+    const result = await fetch("https://api.spotify.com/v1/me", {
+        method: "GET", headers: { Authorization: `Bearer ${code}` }
+    });
+
+    return await result.json();
+}
+
+function populateUI(profile) {
+    document.getElementById("displayName").innerText = profile.display_name;
+    document.getElementById("avatar").setAttribute("src", profile.images[0].url)
+    document.getElementById("id").innerText = profile.id;
+    document.getElementById("email").innerText = profile.email;
+    document.getElementById("uri").innerText = profile.uri;
+    document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
+    document.getElementById("url").innerText = profile.href;
+    document.getElementById("url").setAttribute("href", profile.href);
+    document.getElementById("imgUrl").innerText = profile.images[0].url;
+}

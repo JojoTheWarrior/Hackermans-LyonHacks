@@ -11,30 +11,14 @@
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
     crossorigin=""></script>
 
-    <style>
-        #map {
-            height: 350px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/index.css"></link>
 </head>
+
 <body>
     <div id="map"></div>
 </body>
 
-<script>
-    console.log("joojthewarrior");
-    var map = L.map('map', {
-        center: [51.505, -0.09],
-        zoom: 13,
-        inertia: true
-    });
-    
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    var marker = L.marker([51.5, -0.09])
-</script>
+<!--This actually renders the map-->
+<script src="../api/leaflet/leaflet.js"></script>
 
 </html>
