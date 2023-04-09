@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Simple Map</title>
 
@@ -12,10 +12,20 @@
     crossorigin=""></script>
 
     <link rel="stylesheet" href="../assets/css/index.css"></link>
+
+    <script>
+        function display(){
+            document.getElementById("sidebar").style.display = "block";
+            document.getElementById("name") = ""; 
+        }
+    </script>
 </head>
 
 <body>
     <div id="map"></div>
+    <div id="sidebar">
+        <h1 id="name"></h1>
+    </div>
 </body>
 
 <!--Call the countries_coordinates.js file first so that leaflet.js can access the global variable (avoids using modules)-->
