@@ -15,7 +15,7 @@ JSON.safeStringify = (obj, indent = 2) => {
     return retVal;
 };
 
-// creates one massive geoJson file of the world
+// creates one massive geoJson file of the world - pangaea...
 var theWorld = {
     "type":"FeatureCollection",
     "features": [],
@@ -34,8 +34,8 @@ theWorld.features = theWorld.features.concat(south_america_data.features);
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
-    minZoom: 2.9,
-    maxZoom: 2.9,
+    minZoom: 2.53,
+    maxZoom: 2.53,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false
@@ -46,7 +46,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-map.setView([27, 12.121257773548779], 2.9);
+map.setView([23.276495031663973, 12.121257773548779], 2.53);
 
 //simple robin karp hash, uses the name of the country to randomize a color for it
 function colorHash(name){
@@ -71,7 +71,7 @@ function style(feature){
         opacity: 1,
         color: 'white',
         dashArray: '3',
-        fillOpacity: 0.5
+        fillOpacity: 0.3
     };
 }
 
@@ -103,16 +103,7 @@ function highlightFeature(e){
 
 // simply resets the style back to normal
 function resetHighlight(e){
-    var country = e.target;
-
-    country.setStyle({
-        fillColor: colorHash(country.feature.properties.name),
-        weight: 1,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    });
+    original_world.resetStyle(e.target);
 }
 
 // describes the interactivity of each country
@@ -125,7 +116,7 @@ function onEachFeature(feature, layer){
 
 //console.log(JSON.safeStringify(north_america_data));
 
-L.geoJson(theWorld, {
+var original_world = L.geoJson(theWorld, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
