@@ -34,8 +34,8 @@ theWorld.features = theWorld.features.concat(south_america_data.features);
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
-    minZoom: 2.53,
-    maxZoom: 2.53,
+    minZoom: 2.9,
+    maxZoom: 2.9,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false
@@ -46,7 +46,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-map.setView([23.276495031663973, 12.121257773548779], 2.53);
+map.setView([27, 12.121257773548779], 2.9);
 
 //simple robin karp hash, uses the name of the country to randomize a color for it
 function colorHash(name){
