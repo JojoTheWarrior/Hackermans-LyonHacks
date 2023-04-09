@@ -35,7 +35,7 @@ console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: 2.9,
-    maxZoom: 5,
+    maxZoom: 8,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
@@ -110,11 +110,26 @@ function resetHighlight(e){
 function displaySidebar(country){
     document.getElementById("sidebar").style.display = "block";
     document.getElementById("name").innerHTML = country.feature.properties.name; 
+
+}
+
+function hideSidebar(){
+    document.getElementById("sidebar").style.display = "none";
+    map.setView([28, 12.121257773548779], 2.9);
 }
 
 function zoomInCountry(e) {
     var country = e.target;
-    map.fitBounds(country.getBounds());
+    var north = Math.min(80, country.getBounds().getNorth());
+    var south = Math.max(-80, country.getBounds().getSouth())
+    var west = country.getBounds().getWest();
+    var east = country.getBounds().getEast();
+    var shift = (east - west) * 0.25;
+    var corner1 = L.latLng(south, west - shift);
+    var corner2 = L.latLng(north, east - shift);
+    var bounds = L.latLngBounds(corner1, corner2);
+
+    map.fitBounds(bounds);
     displaySidebar(country);
 }
 
@@ -133,11 +148,6 @@ var original_world = L.geoJson(theWorld, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
-
-function hide(){
-    document.getElementById("sidebar").style.display = "none";
-    map.fitBounds(theWorld.getBounds());
-}
 
 /* example of how to add markers / polygons / lines to the map
 var marker = L.marker([51.5, -0.09]);
