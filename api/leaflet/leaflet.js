@@ -23,7 +23,7 @@ var theWorld = {
         "stroke":"#000000",
         "fill":"#3498DB",
         "stroke-width":1,
-        "fill-opacity":0.8
+        "fill-opacity":0.6
     }
 }
 
@@ -34,11 +34,12 @@ theWorld.features = theWorld.features.concat(south_america_data.features);
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
-    minZoom: 2.53,
-    maxZoom: 2.53,
+    minZoom: 2.9,
+    maxZoom: 5,
     dragging: false,
     zoomControl: false,
-    doubleClickZoom: false
+    doubleClickZoom: false,
+    scrollWheelZoom: false
 });
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -46,7 +47,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-map.setView([23.276495031663973, 12.121257773548779], 2.53);
+map.setView([28, 12.121257773548779], 2.9);
 
 //simple robin karp hash, uses the name of the country to randomize a color for it
 function colorHash(name){
@@ -95,7 +96,7 @@ function highlightFeature(e){
         weight: 1,
         fillColor: darken(country.options.fillColor.substring(1)),
         dashArray: '',
-        fillOpacity: 1
+        fillOpacity: 0.8
     });
 
     country.bringToFront();
@@ -106,11 +107,23 @@ function resetHighlight(e){
     original_world.resetStyle(e.target);
 }
 
+function displaySidebar(country){
+    document.getElementById("sidebar").style.display = "block";
+    // document.getElementById("name") = country.feature.properties.name; 
+}
+
+function zoomInCountry(e) {
+    var country = e.target;
+    map.fitBounds(country.getBounds());
+    displaySidebar(country);
+}
+
 // describes the interactivity of each country
 function onEachFeature(feature, layer){
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight
+        mouseout: resetHighlight,
+        click: zoomInCountry
     });
 }
 

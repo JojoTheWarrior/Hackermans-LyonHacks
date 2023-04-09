@@ -1,7 +1,5 @@
 #map {
-    height: 98vh;
-    border: solid black 3px;
-    border-radius: 10px;
+    height: 100vh;
 }
 
 #sidebar{
@@ -16,5 +14,4 @@
 
 body{
     margin: 0;
-    padding: 5px;
 }
