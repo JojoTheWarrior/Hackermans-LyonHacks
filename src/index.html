@@ -18,7 +18,10 @@
     <div id="map"></div>
 </body>
 
+<!--Call the countries_coordinates.js file first so that leaflet.js can access the global variable (avoids using modules)-->
+<script src="../assets/geojson/countries_coordinates.js"></script>
+
 <!--This actually renders the map-->
-<script type="module" src="../api/leaflet/leaflet.js"></script>
+<script src="../api/leaflet/leaflet.js"></script>
 
 </html>

@@ -1,5 +1,3 @@
-import { countriesData } from "../../assets/geojson/countries_coordinates.js";
-
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
