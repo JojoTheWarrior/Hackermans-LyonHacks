@@ -1,4 +1,4 @@
-import { countriesData } from "../../assets/geojson/france.js";
+import { countriesData } from "../../assets/geojson/countries_coordinates.js";
 
 console.log("joojthewarrior");
 var map = L.map('map', {
