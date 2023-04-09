@@ -109,7 +109,7 @@ function resetHighlight(e){
 
 function displaySidebar(country){
     document.getElementById("sidebar").style.display = "block";
-    // document.getElementById("name") = country.feature.properties.name; 
+    document.getElementById("name").innerHTML = country.feature.properties.name; 
 }
 
 function zoomInCountry(e) {
@@ -133,6 +133,11 @@ var original_world = L.geoJson(theWorld, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
+
+function hide(){
+    document.getElementById("sidebar").style.display = "none";
+    map.fitBounds(theWorld.getBounds());
+}
 
 /* example of how to add markers / polygons / lines to the map
 var marker = L.marker([51.5, -0.09]);
