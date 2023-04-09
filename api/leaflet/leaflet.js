@@ -1,10 +1,13 @@
+import { countriesData } from "../../assets/geojson/france.js";
+
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: 2.53,
     maxZoom: 2.53,
     dragging: false,
-    zoomControl: false
+    zoomControl: false,
+    doubleClickZoom: false
 });
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -14,13 +17,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 map.setView([23.276495031663973, 12.121257773548779], 2.53);
 
+L.geoJson(countriesData).addTo(map);
+
 /* example of how to add markers / polygons / lines to the map
 var marker = L.marker([51.5, -0.09]);
 marker.addTo(map);
 */
 
-// Event listeners for when the map changes
+/* example of event listeners for when the map changes
 map.on('move', () => {
     var ll = map.getCenter();
     console.log(`${ll.lat}, ${ll.lng}`);
 });
+*/
