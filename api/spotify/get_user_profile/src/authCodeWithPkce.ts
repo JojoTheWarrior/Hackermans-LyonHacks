@@ -1,4 +1,4 @@
-export async function redirectToAuthCodeFlow(clientId) {
+export async function redirectToAuthCodeFlow(clientId: string) {
     const verifier = generateCodeVerifier(128);
     const challenge = await generateCodeChallenge(verifier);
 
@@ -15,7 +15,7 @@ export async function redirectToAuthCodeFlow(clientId) {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
-export async function getAccessToken(clientId, code) {
+export async function getAccessToken(clientId: string, code: string) {
     const verifier = localStorage.getItem("verifier");
 
     const params = new URLSearchParams();
@@ -23,7 +23,7 @@ export async function getAccessToken(clientId, code) {
     params.append("grant_type", "authorization_code");
     params.append("code", code);
     params.append("redirect_uri", "http://localhost:5173/callback");
-    params.append("code_verifier", verifier);
+    params.append("code_verifier", verifier!);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
@@ -35,7 +35,7 @@ export async function getAccessToken(clientId, code) {
     return access_token;
 }
 
-function generateCodeVerifier(length) {
+function generateCodeVerifier(length: number) {
     let text = '';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -45,7 +45,7 @@ function generateCodeVerifier(length) {
     return text;
 }
 
-async function generateCodeChallenge(codeVerifier) {
+async function generateCodeChallenge(codeVerifier: string) {
     const data = new TextEncoder().encode(codeVerifier);
     const digest = await window.crypto.subtle.digest('SHA-256', data);
     return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
