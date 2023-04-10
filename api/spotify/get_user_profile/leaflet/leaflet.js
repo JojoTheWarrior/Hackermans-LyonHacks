@@ -28,8 +28,9 @@ var theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-var activeCountries = new Map();
-activeCountries.set("North Korea", ["kim jung rap"])
+var activeCountries = [
+    "China", "Brazil", "Japan", "United Kingdom", "France", "Germany", "India", "Iran", "South Korea (Republic of Korea)", "Malaysia", "Philippines", "Spain", "Sweden", "Turkey"
+]
 var selectedCountry = "";
 
 /* tries all the genres and adds them into activeCountries
@@ -70,14 +71,12 @@ theWorld.features = theWorld.features.concat(africa_data.features);
 
 // calculates the optimal zoom for the user's screen
 let averageDimension = (window.innerHeight + window.innerWidth) / 2, optimalZoom = 0.30269 * Math.log2(averageDimension) - 0.52010; 
-console.log(optimalZoom);
 
 // initializes the empty map with no controls
-console.log("initializing map...");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: optimalZoom,
-    maxZoom: 8,
+    maxZoom: 7,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
@@ -110,7 +109,7 @@ function colorHash(name){
 function style(feature){
     var countryName = feature.properties.name;
 
-    if (activeCountries.has(countryName)){
+    if (activeCountries.includes(countryName)){
         return {
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
@@ -149,9 +148,7 @@ function highlightFeature(e){
     // if this is not an active country, just skip it
     var countryName = country.feature.properties.name;
 
-    console.log(countryName);
-
-    if (activeCountries.has(countryName)){
+    if (activeCountries.includes(countryName)){
         country.setStyle({
             weight: 1,
             fillColor: darken(country.options.fillColor.substring(1)),
@@ -232,3 +229,4 @@ map.on('move', () => {
     console.log(`${ll.lat}, ${ll.lng}`);
 });
 */
+
