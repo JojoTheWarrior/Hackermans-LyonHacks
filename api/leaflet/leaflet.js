@@ -31,7 +31,7 @@ theWorld.features = theWorld.features.concat(north_america_data.features);
 theWorld.features = theWorld.features.concat(south_america_data.features);
 
 // initializes the empty map with no controls
-console.log("joojthewarrior");
+console.log("initializing map...");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: 2.9,
