@@ -16,7 +16,7 @@ JSON.safeStringify = (obj, indent = 2) => {
 };
 
 // creates one massive geoJson file of the world - pangaea...
-var theWorld = {
+let theWorld = {
     "type":"FeatureCollection",
     "features": [],
     "style":{
@@ -28,13 +28,13 @@ var theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-var activeCountries = [
-    "China", "Brazil", "Japan", "United Kingdom", "France", "Germany", "India", "Iran", "South Korea (Republic of Korea)", "Malaysia", "Philippines", "Spain", "Sweden", "Turkey"
-]
-var selectedCountry = "";
+let activeCountries = {
+    "China":"mandopop", "Brazil":"brazil", "Japan":"j-pop", "United Kingdom":"british", "France":"french", "Germany":"german", "India":"indian", "Iran":"iranian", "South Korea (Republic of Korea)":"k-pop", "Malaysia":"malay", "Philippines":"philippines-opm", "Spain":"spanish", "Sweden":"swedish", "Turkey":"turkish"
+}
+let selectedCountry = "";
 
 /* tries all the genres and adds them into activeCountries
-var all_music_types = [
+let all_music_types = [
     "Tech", "Pop", "Hip Hop", "Indie", "Metal", "Rock", "Jazz", "Blues", "Reggae", "Folk", "Traditional", "Punk"
 ]
 
@@ -42,7 +42,7 @@ for (j = 0; j < all_music_types.length; j++){
     type = all_music_types[j];
 
     console.log(type);
-    var similar_genres = findSimilarGenres(type);
+    let similar_genres = findSimilarGenres(type);
 
     console.log(similar_genres);
 
@@ -54,7 +54,7 @@ for (j = 0; j < all_music_types.length; j++){
         for (k = 0; k < similar_genres[country].length; k++){
             let thisGenre = similar_genres[country][k];
 
-            if (!activeCountries.get(country).includes(thisGenre)){
+            if (!activeCountries.get(country).has(thisGenre)){
                 activeCountries.get(country).push(similar_genres[country][k]);
             }
         }
@@ -73,7 +73,7 @@ theWorld.features = theWorld.features.concat(africa_data.features);
 let averageDimension = (window.innerHeight + window.innerWidth) / 2, optimalZoom = 0.30269 * Math.log2(averageDimension) - 0.52010; 
 
 // initializes the empty map with no controls
-var map = L.map('map', {
+let map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: optimalZoom,
     maxZoom: 7,
@@ -92,7 +92,7 @@ map.setView([23.276495031663973, 12.121257773548779], optimalZoom);
 
 //simple robin karp hash, uses the name of the country to randomize a color for it
 function colorHash(name){
-    var base = 233, mdl = 1000000007, hash = 0, place = 1, hex = 16777215 + 1;
+    let base = 233, mdl = 1000000007, hash = 0, place = 1, hex = 16777215 + 1;
     for (i = 0; i < name.length; i++){
         if (name.charAt(i) == ' ') continue;
         hash += (place * (name.charAt(i).charCodeAt()) % mdl);
@@ -107,9 +107,9 @@ function colorHash(name){
 
 // styles the inputted "feature" (the feature is basically a country)
 function style(feature){
-    var countryName = feature.properties.name;
+    let countryName = feature.properties.name;
 
-    if (activeCountries.includes(countryName)){
+    if (activeCountries.has(countryName)){
         return {
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
@@ -132,7 +132,7 @@ function style(feature){
 
 // darkens each of the three colors (RGB) 
 function darken(col){
-    var R = col.substring(0, 2), G = col.substring(2, 4), B = col.substring(4, 6);
+    let R = col.substring(0, 2), G = col.substring(2, 4), B = col.substring(4, 6);
     // adds 22 to each pair in the hex - equivalent to adding 34 in decimal
     R = Math.min(255, parseInt(R, 16) + 34);
     G = Math.min(255, parseInt(G, 16) + 34);
@@ -143,12 +143,12 @@ function darken(col){
 
 // what happens when you hover over this country
 function highlightFeature(e){
-    var country = e.target;
+    let country = e.target;
 
     // if this is not an active country, just skip it
-    var countryName = country.feature.properties.name;
+    let countryName = country.feature.properties.name;
 
-    if (activeCountries.includes(countryName)){
+    if (activeCountries.has(countryName)){
         country.setStyle({
             weight: 1,
             fillColor: darken(country.options.fillColor.substring(1)),
@@ -177,10 +177,10 @@ function hideSidebar(){
 }
 
 function zoomInCountry(e) {
-    var country = e.target;
-    var countryName = country.feature.properties.name;
+    let country = e.target;
+    let countryName = country.feature.properties.name;
 
-    if (activeCountries.has(countryName)){ 
+    if (activeCountries.includes(countryName)){ 
         var north = Math.min(80, country.getBounds().getNorth());
         var south = Math.max(-80, country.getBounds().getSouth())
         var west = country.getBounds().getWest();
@@ -206,26 +206,26 @@ function onEachFeature(feature, layer){
 
 //console.log(JSON.safeStringify(north_america_data));
 
-var original_world = L.geoJson(theWorld, {
+let original_world = L.geoJson(theWorld, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
 
 /* example of how to add markers / polygons / lines to the map
-var marker = L.marker([51.5, -0.09]);
+let marker = L.marker([51.5, -0.09]);
 marker.addTo(map);
 */
 
 /* example of event listeners for when the map changes
 map.on('move', () => {
-    var ll = map.getCenter();
+    let ll = map.getCenter();
     console.log(`${ll.lat}, ${ll.lng}`);
 });
 */
 
 /* example of event listeners for when the map changes
 map.on('move', () => {
-    var ll = map.getCenter();
+    let ll = map.getCenter();
     console.log(`${ll.lat}, ${ll.lng}`);
 });
 */
