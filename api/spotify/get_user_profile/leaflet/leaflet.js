@@ -183,7 +183,7 @@ function zoomInCountry(e) {
     var country = e.target;
     var countryName = country.feature.properties.name;
 
-    if (activeCountries.includes(countryName)){ 
+    if (activeCountries.has(countryName)){ 
         var north = Math.min(80, country.getBounds().getNorth());
         var south = Math.max(-80, country.getBounds().getSouth())
         var west = country.getBounds().getWest();

@@ -8,7 +8,7 @@ var all_genres = {"West Africa":[
 ], "Arab World":[
         "Arab Folk",
         "Arab Pop"
-], "South Africa":[
+], "South Africa":[ 
         "South African Jazz"
 ], "Albania":[
         "Albanian Pop"
