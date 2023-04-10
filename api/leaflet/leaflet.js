@@ -48,8 +48,13 @@ console.log(optimalZoom);
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
+<<<<<<< HEAD
     minZoom: optimalZoom,
     maxZoom: 8,
+=======
+    minZoom: 2.9,
+    maxZoom: 7,
+>>>>>>> 0b774caf00c45ee0c5f04a03e9f83ce2eb59c862
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
