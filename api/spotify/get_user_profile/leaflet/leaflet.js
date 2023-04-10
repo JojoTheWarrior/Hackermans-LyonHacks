@@ -28,10 +28,44 @@ var theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
+<<<<<<< HEAD:api/leaflet/leaflet.js
 var activeCountries = [
     "China", "Brazil", "Japan", "United Kingdom", "France", "Germany", "India", "Iran", "South Korea (Republic of Korea)", "Malaysia", "Philippines", "Spain", "Sweden", "Turkey"
 ]
+=======
+var activeCountries = new Map();
+activeCountries.set("North Korea", ["kim jung rap"])
+>>>>>>> a51a366a6a4fd5519712fe47464130070eda8309:api/spotify/get_user_profile/leaflet/leaflet.js
 var selectedCountry = "";
+
+/* tries all the genres and adds them into activeCountries
+var all_music_types = [
+    "Tech", "Pop", "Hip Hop", "Indie", "Metal", "Rock", "Jazz", "Blues", "Reggae", "Folk", "Traditional", "Punk"
+]
+
+for (j = 0; j < all_music_types.length; j++){
+    type = all_music_types[j];
+
+    console.log(type);
+    var similar_genres = findSimilarGenres(type);
+
+    console.log(similar_genres);
+
+    for (country in similar_genres){
+        if (!activeCountries.has(country)){
+            activeCountries.set(country, []);
+        }
+
+        for (k = 0; k < similar_genres[country].length; k++){
+            let thisGenre = similar_genres[country][k];
+
+            if (!activeCountries.get(country).includes(thisGenre)){
+                activeCountries.get(country).push(similar_genres[country][k]);
+            }
+        }
+    }
+}
+*/
 
 theWorld.features = theWorld.features.concat(north_america_data.features);
 theWorld.features = theWorld.features.concat(south_america_data.features);
@@ -80,7 +114,7 @@ function colorHash(name){
 function style(feature){
     var countryName = feature.properties.name;
 
-    if (activeCountries.includes(countryName)){
+    if (activeCountries.has(countryName)){
         return {
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
@@ -119,7 +153,13 @@ function highlightFeature(e){
     // if this is not an active country, just skip it
     var countryName = country.feature.properties.name;
 
+<<<<<<< HEAD:api/leaflet/leaflet.js
     if (activeCountries.includes(countryName)){
+=======
+    console.log(countryName);
+
+    if (activeCountries.has(countryName)){
+>>>>>>> a51a366a6a4fd5519712fe47464130070eda8309:api/spotify/get_user_profile/leaflet/leaflet.js
         country.setStyle({
             weight: 1,
             fillColor: darken(country.options.fillColor.substring(1)),

@@ -13,15 +13,6 @@ var all_genres = {"West Africa":[
 ], "Albania":[
         "Albanian Pop"
 ], "USA":[
-        "Hip Hop",
-        "Rap",
-        "Pop",
-        "Rock",
-        "Jazz",
-        "Blues",
-        "Soul",
-        "Funk",
-        "R&b",
         "Albuquerque Indie",
         "Appalachian Folk",
         "Bay Area Hip Hop",
@@ -56,7 +47,7 @@ var all_genres = {"West Africa":[
         "Southern Soul Blues",
         "Texas Blues",
         "Texas Country",
-        "West Coast Rap"
+        "West Coast Hip Hop"
 ], "Argentina":[
         "Argentine Indie",
         "Argentine Reggae",
@@ -169,7 +160,7 @@ var all_genres = {"West Africa":[
         "Irish Rock",
         "Traditional Irish Folk"
 ], "Mexico":[
-        "Chicano Rap",
+        "Chicano Hip Hop",
         "Mexican Indie",
         "Mexican Rock-and-roll",
         "Mexican Son",
@@ -290,7 +281,7 @@ var all_genres = {"West Africa":[
         "Israeli Rock"
 ], "Japan":[
         "Japanese Pop",
-        "Japanese Rap",
+        "Japanese Hip Hop",
         "Japanese Jazz",
         "Japanese Psychedelic",
         "Japanese Blues",
