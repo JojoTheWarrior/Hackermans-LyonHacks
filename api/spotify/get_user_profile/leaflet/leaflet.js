@@ -28,9 +28,10 @@ let theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-const activeCountries = new Map<string, string>([
+const activeCountries = new Map([
     ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"]
 ]);
+
 let selectedCountry = "";
 
 /* tries all the genres and adds them into activeCountries
@@ -180,7 +181,7 @@ function zoomInCountry(e) {
     let country = e.target;
     let countryName = country.feature.properties.name;
 
-    if (activeCountries.includes(countryName)){ 
+    if (activeCountries.has(countryName)){ 
         var north = Math.min(80, country.getBounds().getNorth());
         var south = Math.max(-80, country.getBounds().getSouth())
         var west = country.getBounds().getWest();
