@@ -29,7 +29,7 @@ var theWorld = {
 
 // all countries that are currently shown and the one that is currently selected
 var activeCountries = [
-
+    "France", "Canada", "Russia (Russian Federation)"
 ]
 var selectedCountry = "";
 
@@ -82,7 +82,7 @@ function colorHash(name){
 function style(feature){
     var countryName = feature.properties.name;
 
-    if (countryName in activeCountries){
+    if (activeCountries.includes(countryName)){
         return {
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
@@ -119,18 +119,20 @@ function highlightFeature(e){
     var country = e.target;
 
     // if this is not an active country, just skip it
-    if (!(country in activeCountries)) return;
+    var countryName = country.feature.properties.name;
 
-    console.log(JSON.safeStringify(country.options));
+    if (activeCountries.includes(countryName)){
+        console.log(JSON.safeStringify(country.options));
 
-    country.setStyle({
-        weight: 1,
-        fillColor: darken(country.options.fillColor.substring(1)),
-        dashArray: '',
-        fillOpacity: 0.8
-    });
+        country.setStyle({
+            weight: 1,
+            fillColor: darken(country.options.fillColor.substring(1)),
+            dashArray: '',
+            fillOpacity: 0.8
+        });
 
-    country.bringToFront();
+        country.bringToFront();
+    }
 }
 
 // simply resets the style back to normal
@@ -151,17 +153,21 @@ function hideSidebar(){
 
 function zoomInCountry(e) {
     var country = e.target;
-    var north = Math.min(80, country.getBounds().getNorth());
-    var south = Math.max(-80, country.getBounds().getSouth())
-    var west = country.getBounds().getWest();
-    var east = country.getBounds().getEast();
-    var shift = (east - west) * 0.25;
-    var corner1 = L.latLng(south, west - shift);
-    var corner2 = L.latLng(north, east - shift);
-    var bounds = L.latLngBounds(corner1, corner2);
+    var countryName = country.feature.properties.name;
 
-    map.fitBounds(bounds);
-    displaySidebar(country);
+    if (activeCountries.includes(countryName)){ 
+        var north = Math.min(80, country.getBounds().getNorth());
+        var south = Math.max(-80, country.getBounds().getSouth())
+        var west = country.getBounds().getWest();
+        var east = country.getBounds().getEast();
+        var shift = (east - west) * 0.25;
+        var corner1 = L.latLng(south, west - shift);
+        var corner2 = L.latLng(north, east - shift);
+        var bounds = L.latLngBounds(corner1, corner2);
+
+        map.fitBounds(bounds);
+        displaySidebar(country);
+    }
 }
 
 // describes the interactivity of each country
