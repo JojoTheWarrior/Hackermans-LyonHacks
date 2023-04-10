@@ -27,6 +27,12 @@ var theWorld = {
     }
 }
 
+// all countries that are currently shown and the one that is currently selected
+var activeCountries = [
+
+]
+var selectedCountry = "";
+
 theWorld.features = theWorld.features.concat(north_america_data.features);
 theWorld.features = theWorld.features.concat(south_america_data.features);
 theWorld.features = theWorld.features.concat(asia_data.features);
@@ -74,14 +80,27 @@ function colorHash(name){
 
 // styles the inputted "feature" (the feature is basically a country)
 function style(feature){
-    return {
-        fillColor: colorHash(feature.properties.name),
-        weight: 1,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.3
-    };
+    var countryName = feature.properties.name;
+
+    if (countryName in activeCountries){
+        return {
+            fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
+            weight: 1,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.3
+        };
+    } else {
+        return {
+            fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
+            weight: 0,
+            opacity: 0,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0
+        }
+    }
 }
 
 // darkens each of the three colors (RGB) 
@@ -98,7 +117,9 @@ function darken(col){
 // what happens when you hover over this country
 function highlightFeature(e){
     var country = e.target;
-    console.log(country.feature.properties.name);
+    if (!(country in activeCountries)) return;
+
+    console.log(JSON.safeStringify(country.options));
 
     country.setStyle({
         weight: 1,
