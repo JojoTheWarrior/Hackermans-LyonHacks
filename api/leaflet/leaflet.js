@@ -23,18 +23,26 @@ var theWorld = {
         "stroke":"#000000",
         "fill":"#3498DB",
         "stroke-width":1,
-        "fill-opacity":0.6
+        "fill-opacity":0.8
     }
 }
 
 theWorld.features = theWorld.features.concat(north_america_data.features);
 theWorld.features = theWorld.features.concat(south_america_data.features);
+theWorld.features = theWorld.features.concat(asia_data.features);
+theWorld.features = theWorld.features.concat(australia_data.features);
+theWorld.features = theWorld.features.concat(europe_data.features);
+theWorld.features = theWorld.features.concat(africa_data.features);
+
+// calculates the optimal zoom for the user's screen
+let averageDimension = (window.innerHeight + window.innerWidth) / 2, optimalZoom = 0.30269 * Math.log2(averageDimension) - 0.52010; 
+console.log(optimalZoom);
 
 // initializes the empty map with no controls
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
-    minZoom: 2.9,
+    minZoom: optimalZoom,
     maxZoom: 8,
     dragging: false,
     zoomControl: false,
@@ -43,11 +51,11 @@ var map = L.map('map', {
 });
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+    maxZoom: 8,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-map.setView([28, 12.121257773548779], 2.9);
+map.setView([23.276495031663973, 12.121257773548779], optimalZoom);
 
 //simple robin karp hash, uses the name of the country to randomize a color for it
 function colorHash(name){
@@ -105,7 +113,7 @@ function highlightFeature(e){
 // simply resets the style back to normal
 function resetHighlight(e){
     original_world.resetStyle(e.target);
-}
+}   
 
 function displaySidebar(country){
     document.getElementById("sidebar").style.display = "block";
@@ -115,7 +123,7 @@ function displaySidebar(country){
 
 function hideSidebar(){
     document.getElementById("sidebar").style.display = "none";
-    map.setView([28, 12.121257773548779], 2.9);
+    map.setView([23, 12.121257773548779], 2.9);
 }
 
 function zoomInCountry(e) {
