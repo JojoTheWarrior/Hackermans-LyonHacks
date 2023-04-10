@@ -48,13 +48,8 @@ console.log(optimalZoom);
 console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
-<<<<<<< HEAD
     minZoom: optimalZoom,
     maxZoom: 8,
-=======
-    minZoom: 2.9,
-    maxZoom: 7,
->>>>>>> 0b774caf00c45ee0c5f04a03e9f83ce2eb59c862
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
@@ -122,6 +117,8 @@ function darken(col){
 // what happens when you hover over this country
 function highlightFeature(e){
     var country = e.target;
+
+    // if this is not an active country, just skip it
     if (!(country in activeCountries)) return;
 
     console.log(JSON.safeStringify(country.options));
@@ -186,6 +183,13 @@ var original_world = L.geoJson(theWorld, {
 /* example of how to add markers / polygons / lines to the map
 var marker = L.marker([51.5, -0.09]);
 marker.addTo(map);
+*/
+
+/* example of event listeners for when the map changes
+map.on('move', () => {
+    var ll = map.getCenter();
+    console.log(`${ll.lat}, ${ll.lng}`);
+});
 */
 
 /* example of event listeners for when the map changes
