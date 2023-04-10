@@ -35,7 +35,7 @@ console.log("joojthewarrior");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: 2.9,
-    maxZoom: 8,
+    maxZoom: 7,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
