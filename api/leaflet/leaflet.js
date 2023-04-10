@@ -49,7 +49,7 @@ console.log("initializing map...");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: optimalZoom,
-    maxZoom: 8,
+    maxZoom: 7,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
@@ -87,7 +87,7 @@ function style(feature){
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
             opacity: 1,
-            color: 'white',
+            color: colorHash(countryName),
             dashArray: '3',
             fillOpacity: 0.3
         };
@@ -152,7 +152,7 @@ function hideSidebar(){
 function zoomInCountry(e) {
     var country = e.target;
     var north = Math.min(80, country.getBounds().getNorth());
-    var south = Math.max(-80, country.getBounds().getSouth())
+    var south = Math.max(-60, country.getBounds().getSouth())
     var west = country.getBounds().getWest();
     var east = country.getBounds().getEast();
     var shift = (east - west) * 0.25;
