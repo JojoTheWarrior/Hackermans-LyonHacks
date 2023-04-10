@@ -28,9 +28,9 @@ let theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-let activeCountries = {
-    "China":"mandopop", "Brazil":"brazil", "Japan":"j-pop", "United Kingdom":"british", "France":"french", "Germany":"german", "India":"indian", "Iran":"iranian", "South Korea (Republic of Korea)":"k-pop", "Malaysia":"malay", "Philippines":"philippines-opm", "Spain":"spanish", "Sweden":"swedish", "Turkey":"turkish"
-}
+const activeCountries = new Map<string, string>([
+    ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"]
+]);
 let selectedCountry = "";
 
 /* tries all the genres and adds them into activeCountries
