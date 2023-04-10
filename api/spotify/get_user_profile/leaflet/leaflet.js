@@ -29,9 +29,10 @@ var theWorld = {
 
 // all countries that are currently shown and the one that is currently selected
 var activeCountries = new Map();
+activeCountries.set("North Korea", ["kim jung rap"])
 var selectedCountry = "";
 
-// tries all the genres and adds them into activeCountries
+/* tries all the genres and adds them into activeCountries
 var all_music_types = [
     "Tech", "Pop", "Hip Hop", "Indie", "Metal", "Rock", "Jazz", "Blues", "Reggae", "Folk", "Traditional", "Punk"
 ]
@@ -58,9 +59,7 @@ for (j = 0; j < all_music_types.length; j++){
         }
     }
 }
-
-console.log("OSWALD", activeCountries.has("China"));
-
+*/
 
 theWorld.features = theWorld.features.concat(north_america_data.features);
 theWorld.features = theWorld.features.concat(south_america_data.features);
