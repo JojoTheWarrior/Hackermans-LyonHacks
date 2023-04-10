@@ -29,7 +29,7 @@ var theWorld = {
 
 // all countries that are currently shown and the one that is currently selected
 var activeCountries = [
-    "France", "Canada", "Russia (Russian Federation)"
+    "China", "Brazil", "Japan", "United Kingdom", "France", "Germany", "India", "Iran", "South Korea (Republic of Korea)", "Malaysia", "Philippines", "Spain", "Sweden", "Turkey"
 ]
 var selectedCountry = "";
 
@@ -42,14 +42,12 @@ theWorld.features = theWorld.features.concat(africa_data.features);
 
 // calculates the optimal zoom for the user's screen
 let averageDimension = (window.innerHeight + window.innerWidth) / 2, optimalZoom = 0.30269 * Math.log2(averageDimension) - 0.52010; 
-console.log(optimalZoom);
 
 // initializes the empty map with no controls
-console.log("initializing map...");
 var map = L.map('map', {
     center: [51.505, -0.09],
     minZoom: optimalZoom,
-    maxZoom: 8,
+    maxZoom: 7,
     dragging: false,
     zoomControl: false,
     doubleClickZoom: false,
@@ -122,8 +120,6 @@ function highlightFeature(e){
     var countryName = country.feature.properties.name;
 
     if (activeCountries.includes(countryName)){
-        console.log(JSON.safeStringify(country.options));
-
         country.setStyle({
             weight: 1,
             fillColor: darken(country.options.fillColor.substring(1)),
@@ -204,3 +200,4 @@ map.on('move', () => {
     console.log(`${ll.lat}, ${ll.lng}`);
 });
 */
+
