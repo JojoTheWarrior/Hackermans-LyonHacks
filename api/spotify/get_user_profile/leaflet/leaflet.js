@@ -28,14 +28,9 @@ var theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-<<<<<<< HEAD:api/leaflet/leaflet.js
 var activeCountries = [
     "China", "Brazil", "Japan", "United Kingdom", "France", "Germany", "India", "Iran", "South Korea (Republic of Korea)", "Malaysia", "Philippines", "Spain", "Sweden", "Turkey"
 ]
-=======
-var activeCountries = new Map();
-activeCountries.set("North Korea", ["kim jung rap"])
->>>>>>> a51a366a6a4fd5519712fe47464130070eda8309:api/spotify/get_user_profile/leaflet/leaflet.js
 var selectedCountry = "";
 
 /* tries all the genres and adds them into activeCountries
@@ -114,7 +109,7 @@ function colorHash(name){
 function style(feature){
     var countryName = feature.properties.name;
 
-    if (activeCountries.has(countryName)){
+    if (activeCountries.includes(countryName)){
         return {
             fillColor: (countryName === selectedCountry ? darken(colorHash(countryName).substring(1)) : colorHash(countryName)),
             weight: 1,
@@ -153,13 +148,7 @@ function highlightFeature(e){
     // if this is not an active country, just skip it
     var countryName = country.feature.properties.name;
 
-<<<<<<< HEAD:api/leaflet/leaflet.js
     if (activeCountries.includes(countryName)){
-=======
-    console.log(countryName);
-
-    if (activeCountries.has(countryName)){
->>>>>>> a51a366a6a4fd5519712fe47464130070eda8309:api/spotify/get_user_profile/leaflet/leaflet.js
         country.setStyle({
             weight: 1,
             fillColor: darken(country.options.fillColor.substring(1)),

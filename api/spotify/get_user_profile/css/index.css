@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: gotham;
-    src: url('../fonts/Gotham-Black.otf');
+    src: url('./Gotham-Black.otf');
 }
 
 #sidebar{
