@@ -12,7 +12,7 @@ To run this demo you will need:
 
 ## Usage
 
-Create an app in your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/), set the redirect URI to `http://localhost:5173/callback` and `http://localhost:5173/callback/` and copy your Client ID. 
+Create an app in your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/), set the redirect URI to `http://localhost:5173/callback` and `http://localhost:5173/callback/` and copy your Client ID. Replace the value for clientId in `/src/script.ts` with your own Client ID.
 
 Clone the repository, and run:
 
@@ -21,4 +21,3 @@ npm install
 npm run dev
 ```
 
-Replace the value for clientId in `/src/script.ts` with your own Client ID.
