@@ -153,7 +153,7 @@ function highlightFeature(e){
     // if this is not an active country, just skip it
     let countryName = country.feature.properties.name;
 
-    //console.log(country);
+    //console.log(country); 
 
     if (activeCountries.has(countryName)){
         if (selectedCountry == countryName){
