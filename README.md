@@ -19,5 +19,5 @@ Clone the repository, and run:
 ```bash
 npm install
 npm run dev
-```
+``` 
 
