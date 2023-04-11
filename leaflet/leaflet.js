@@ -28,9 +28,13 @@ let theWorld = {
 }
 
 // all countries that are currently shown and the one that is currently selected
-const activeCountries = new Map([
-    ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"]
-]);
+const activeCountriesList = [
+    ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"], ["Nigeria", "nigerian"], ["South Africa", "south african"]
+]
+const activeCountries = new Map();
+for (i = 0; i < activeCountriesList.length; i++){
+    activeCountries.set(activeCountriesList[i][0], activeCountriesList[i][1]);
+}
 
 let selectedCountry = "";
 
@@ -149,13 +153,25 @@ function highlightFeature(e){
     // if this is not an active country, just skip it
     let countryName = country.feature.properties.name;
 
+    //console.log(country);
+
     if (activeCountries.has(countryName)){
-        country.setStyle({
-            weight: 1,
-            fillColor: darken(country.options.fillColor.substring(1)),
-            dashArray: '',
-            fillOpacity: 0.8
-        });
+        if (selectedCountry == countryName){
+            country.setStyle({
+                weight: 1,
+                fillColor: country.options.fillColor,
+                dashArray: '',
+                fillOpacity: 0.8
+            });
+        } else {
+            country.setStyle({
+                weight: 1,
+                fillColor: darken((country.options.fillColor).toString().substring(1)),
+                dashArray: '',
+                fillOpacity: 0.8
+            });
+        }
+        
 
         country.bringToFront();
     }
@@ -169,7 +185,7 @@ function resetHighlight(e){
 function displaySidebar(country){
     document.getElementById("sidebar").style.display = "block";
     document.getElementById("name").innerHTML = country.feature.properties.name; 
-
+    selectedCountry = "";
 }
 
 function hideSidebar(){
@@ -182,6 +198,9 @@ function zoomInCountry(e) {
     let countryName = country.feature.properties.name;
 
     if (activeCountries.has(countryName)){ 
+        selectedCountry = countryName;
+        country.options.fillColor = "#" + darken(country.options.fillColor.substring(1));
+
         var north = Math.min(80, country.getBounds().getNorth());
         var south = Math.max(-80, country.getBounds().getSouth())
         var west = country.getBounds().getWest();

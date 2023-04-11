@@ -41,11 +41,11 @@ async function fetchWebApi(endpoint: string, method: string, body?: JSON) {
   }
 
 const activeCountries = new Map<string, string>([
-    ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"]
+    ["China","mandopop"],["Brazil","brazil"],["Japan","j-pop"],["United Kingdom","british"],["France","french"],["Germany","german"],["India","indian"], ["Iran","iranian"], ["South Korea (Republic of Korea)","k-pop"], ["Malaysia","malay"], ["Philippines","philippines-opm"], ["Spain","spanish"], ["Sweden","swedish"], ["Turkey","turkish"], ["Nigeria", ""], ["South Africa", ""]
 ]);
 
 const countrySongs = new Map<string, string>([
-    ["China",""],["Brazil",""],["Japan",""],["United Kingdom",""],["France",""],["Germany",""],["India",""], ["Iran",""], ["South Korea (Republic of Korea)",""], ["Malaysia",""], ["Philippines",""], ["Spain",""], ["Sweden",""], ["Turkey",""]
+    ["China",""],["Brazil",""],["Japan",""],["United Kingdom",""],["France",""],["Germany",""],["India",""], ["Iran",""], ["South Korea (Republic of Korea)",""], ["Malaysia",""], ["Philippines",""], ["Spain",""], ["Sweden",""], ["Turkey",""], ["Nigeria", ""], ["South Africa", ""]
 ]);
 
 async function getRecommendation(country: string){
