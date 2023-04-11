@@ -1,7 +1,7 @@
 
-# Spodissey – Display your Spotify Profile Data in a Web App
+# Spodissey
 
-Spicing up your life with music around the world! This software accesses your Spotify account and recommends songs from countries around the world. You can run this demo directly or [walk through the tutorial](https://developer.spotify.com/documentation/web-api/howto/web-app-profile).
+LyonHacks III hackathon submission. Spicing up your life with music around the world! This software accesses your Spotify account and recommends songs from countries around the world. You can run this demo directly or [walk through the tutorial](https://developer.spotify.com/documentation/web-api/howto/web-app-profile).
 
 ## Pre-requisites
 
